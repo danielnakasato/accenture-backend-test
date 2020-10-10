@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  db:
+    image: mongo:4.2
+    container_name: 'accenture-test-db'
+    environment:
+      MONGO_INITDB_DATABASE: accenture-test-db
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: teste123
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - 27017:27017
+
+
+

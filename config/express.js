@@ -3,7 +3,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const httpStatus = require('http-status');
 const expressValidation = require('express-validation');
-const routes = require('../index.route');
+const routes = require('../route');
 const config = require('./config');
 const APIError = require('../src/modules/helpers/APIError');
 

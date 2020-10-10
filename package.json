@@ -2,17 +2,17 @@
   "name": "accenture-backend-test",
   "version": "0.0.1",
   "author": "Daniel Nakasato <danielmnakasato@gmail.com>",
-  "main": "index.js",
+  "main": "server.js",
   "private": true,
   "engines": {
     "node": ">=10.0.0",
     "npm": ">=5.6.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "start:debug": "DEBUG=accenture-backend-test:* yarn start",
     "lint": "eslint ./src ./config --ext .json --ext .js --fix",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors server --recursive",
+    "test": "NODE_ENV=test jest --runInBand",
     "test:watch": "yarn test -- --watch"
   },
   "dependencies": {
@@ -31,14 +31,17 @@
     "morgan": "1.9.0"
   },
   "devDependencies": {
-    "chai": "4.1.2",
+    "jest": "26.5.2",
+    "supertest": "5.0.0",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-json": "^1.4.0",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "mocha": "3.5.0"
+    "eslint-plugin-standard": "^4.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
