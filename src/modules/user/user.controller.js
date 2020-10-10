@@ -4,7 +4,6 @@ const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 const crypto = require('../../services/crypto');
 const token = require('../../services/token');
-const test = require('../../middlewares/auth');
 
 const create = async (req, res, next) => {
   let users = await User.findByEmail(req.body.email);
