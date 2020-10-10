@@ -10,6 +10,8 @@ const debug = require('debug')('accenture-backend-test:index');
 // connect to mongo db
 const mongoUri = config.mongo.host;
 mongoose.connect(mongoUri, { server: { socketOptions: { keepAlive: 1 } }, useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('useCreateIndex', true);
+
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${mongoUri}`);
 });

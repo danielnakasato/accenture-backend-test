@@ -66,7 +66,7 @@ UserSchema.method({
  */
 UserSchema.statics = {
 
-  get (id) {
+  get(id) {
     return this.findById(id)
       .exec()
       .then((user) => {
@@ -80,9 +80,13 @@ UserSchema.statics = {
 
   findByEmail(email) {
     return this.find({
-      email: email
+      email: email,
     });
-  }
+  },
+
+  list() {
+    return this.findOne();
+  },
 }
 
 module.exports = mongoose.model('User', UserSchema)

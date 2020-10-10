@@ -2,46 +2,72 @@ const _ = require('lodash');
 const User = require('./user.model');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
+const crypto = require('../../services/crypto');
+const token = require('../../services/token');
+const test = require('../../middlewares/auth');
 
 const create = async (req, res, next) => {
-
-  console.log(req.body.email);
   let users = await User.findByEmail(req.body.email);
 
   if (!_.isEmpty(users)) {
     const err = new APIError('Email já existente!', httpStatus.OK, true);
     return next(err);
   } else {
-    const userToSave = new User({
-      nome: req.body.nome,
-      email: req.body.email,
-      senha: req.body.senha,
-      telefones: req.body.telefones,
-    });
+    crypto.hash(req.body.senha)
+      .then(hash => {
+        const userToSave = new User({
+          nome: req.body.nome,
+          email: req.body.email,
+          senha: hash,
+          telefones: req.body.telefones,
+          token: token.sign({
+            email: req.body.email,
+          }),
+        });
 
-    return userToSave.save()
-      .then(savedUser => {
-        parsedUser = {
-          id: savedUser._id,
-          nome: savedUser.nome,
-          email: savedUser.email,
-          telefones: savedUser.telefones,
-          data_criacao: savedUser.data_criacao,
-          data_atualizacao: savedUser.data_atualizacao,
-          ultimo_login: savedUser.ultimo_login,
-          token: savedUser.token,
-        };
-        return res.json(parsedUser);
+        return userToSave.save()
+          .then(savedUser => {
+            let parsedUser = {
+              id: savedUser._id,
+              nome: savedUser.nome,
+              email: savedUser.email,
+              telefones: savedUser.telefones,
+              data_criacao: savedUser.data_criacao,
+              data_atualizacao: savedUser.data_atualizacao,
+              ultimo_login: savedUser.ultimo_login,
+              token: savedUser.token,
+            };
+
+            return res.json(parsedUser);
+          })
       })
       .catch(e => next(e));
   }
 }
 
-const list = (req, res, next) => {
-  const { limit = 50, skip = 0 } = req.query;
-  User.list({ limit, skip })
-    .then(users => res.json(users))
-    .catch(e => next(e));
+const search = async (req, res, next) => {
+  const userId = req.params.userId;
+  const user = await User.findById(userId);
+
+  if (_.isEmpty(user)) {
+    return res.json(user);
+  } else {
+    let parsedUser = {
+      id: user._id,
+      nome: user.nome,
+      email: user.email,
+      telefones: user.telefones,
+      data_criacao: user.data_criacao,
+      data_atualizacao: user.data_atualizacao,
+      ultimo_login: user.ultimo_login,
+      token: user.token,
+    };
+
+    return res.json(parsedUser);
+  }
 }
 
-module.exports = { create, list };
+const test = async (req, res, next) => {
+}
+
+module.exports = { create, search, test };
