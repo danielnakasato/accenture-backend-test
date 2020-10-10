@@ -6,7 +6,7 @@ require('dotenv').config();
 // define validation for all the env vars
 const envVarsSchema = Joi.object({
   NODE_ENV: Joi.string()
-    .allow(['development', 'production', 'test', 'provision'])
+    .allow(['development', 'production', 'test'])
     .default('development'),
   PORT: Joi.number()
     .default(4040),
@@ -16,6 +16,8 @@ const envVarsSchema = Joi.object({
       then: Joi.boolean().default(true),
       otherwise: Joi.boolean().default(false),
     }),
+  MONGO_HOST_TEST: Joi.string()
+    .description('Docker Mongo DB for tests'),
   MONGO_HOST: Joi.string().required()
     .description('Mongo DB host url'),
   MONGO_PORT: Joi.number()
@@ -36,6 +38,7 @@ const config = {
   port: envVars.PORT,
   mongooseDebug: envVars.MONGOOSE_DEBUG,
   mongo: {
+    hostTest: envVars.MONGO_HOST_TEST,
     host: envVars.MONGO_HOST,
     port: envVars.MONGO_PORT,
   },

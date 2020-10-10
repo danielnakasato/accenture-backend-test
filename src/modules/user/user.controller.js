@@ -44,7 +44,7 @@ const create = async (req, res, next) => {
   }
 }
 
-const search = async (req, res, next) => {
+const search = async (req, res) => {
   const userId = req.params.userId;
   const user = await User.findById(userId);
 

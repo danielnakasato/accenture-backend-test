@@ -12,5 +12,7 @@ module.exports = (req, res, next) => {
     req.body.userEmail = data;
     return next();
   })
-  .catch(res.status(401).send({ error: 'Sessão inválida!' }))
+  .catch(() => {
+    return res.status(401).send({ mensagem: 'Sessão inválida!' });
+  })
 }

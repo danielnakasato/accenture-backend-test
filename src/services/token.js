@@ -3,8 +3,7 @@ const config = require('../../config/config')
 
 const signOptions = {
   algorithm: 'RS256',
-  // expiresIn: config.jwt.duration || 1800,
-  expiresIn: "30m",
+  expiresIn: '30m',
 }
 
 const sign = payload => {
@@ -19,7 +18,11 @@ const verify = token => new Promise((resolve, reject) =>
   jwt.verify(
     token,
     config.jwt.publicKey,
-    (error, data) => error ? reject(error) : resolve(data),
+    (error, data) => {
+      // if (error) {console.log(`jwt error ${error}`);}
+      // else { console.log(`jwt data ${data}`) }
+      return error ? reject(error) : resolve(data)
+    },
   )
 )
 
