@@ -1,0 +1,43 @@
+{
+  "name": "accenture-backend-test",
+  "version": "0.0.1",
+  "author": "Daniel Nakasato <danielmnakasato@gmail.com>",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=5.6.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start:debug": "DEBUG=accenture-backend-test:* yarn start",
+    "lint": "eslint ./src ./config --ext .json --ext .js --fix",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors server --recursive",
+    "test:watch": "yarn test -- --watch"
+  },
+  "dependencies": {
+    "body-parser": "1.18.2",
+    "debug": "^2.4.5",
+    "dotenv": "^4.0.0",
+    "express": "4.16.3",
+    "express-jwt": "5.3.1",
+    "express-validation": "1.0.2",
+    "http-status": "1.0.1",
+    "joi": "10.6.0",
+    "jsonwebtoken": "7.1.9",
+    "lodash": "4.17.4",
+    "mongoose": "5.10.8",
+    "morgan": "1.9.0"
+  },
+  "devDependencies": {
+    "chai": "4.1.2",
+    "eslint": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-json": "^1.4.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "3.5.0"
+  }
+}
