@@ -9,9 +9,6 @@ const router = express.Router()
 router.route('/')
   .post(validate(paramValidation.createUser), userCtrl.create);
 
-router.route('/test')
-  .get(authenticateMiddleware, userCtrl.test);
-
 router.route('/:userId')
   .get(authenticateMiddleware, userCtrl.search);
 

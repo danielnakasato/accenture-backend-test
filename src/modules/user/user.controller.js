@@ -9,7 +9,7 @@ const create = async (req, res, next) => {
   let users = await User.findByEmail(req.body.email);
 
   if (!_.isEmpty(users)) {
-    const err = new APIError('Email já existente!', httpStatus.OK, true);
+    const err = new APIError('Email já existente!', httpStatus.CONFLICT, true);
     return next(err);
   } else {
     crypto.hash(req.body.senha)
@@ -37,7 +37,7 @@ const create = async (req, res, next) => {
               token: savedUser.token,
             };
 
-            return res.json(parsedUser);
+            return res.status(201).json(parsedUser);
           })
       })
       .catch(e => next(e));
@@ -66,7 +66,4 @@ const search = async (req, res, next) => {
   }
 }
 
-const test = async (req, res, next) => {
-}
-
-module.exports = { create, search, test };
+module.exports = { create, search };
