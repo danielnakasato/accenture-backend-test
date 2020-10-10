@@ -4,9 +4,6 @@ const { verify } = require('../services/token');
 
 const extractToken = ctx => {
   const authorization = ctx.headers.authorization || ''
-  console.log('\n\n\n\nauthorization header');
-  console.log(authorization);
-
   return authorization.replace('Bearer ', '')
 }
 
@@ -32,13 +29,13 @@ module.exports = (req, res, next) => {
   return verify(token)
   .then(data => {
     req.body.userEmail = data;
-    // console.log('\n\nDATA DATA DATA');
-    // console.log(data);
+    console.log(`\n\nDATA DATA DATA SUCCESS => ${Date.now()}`);
+    console.log(data);
     return next();
   })
   .catch(err => {
-    // console.log('\n\nDATA DATA DATA ERROR');
-    // console.log(err);
+    console.log(`\n\nDATA DATA DATA ERROR => ${Date.now()}`);
+    console.log(err);
     return res.status(401).send({ error: 'Sessão inválida!' });
   })
 }

@@ -4,7 +4,7 @@ const config = require('../../config/config')
 const signOptions = {
   algorithm: 'RS256',
   // expiresIn: config.jwt.duration || 1800,
-  expiresIn: "2m",
+  expiresIn: "30m",
 }
 
 const sign = payload => {
