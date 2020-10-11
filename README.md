@@ -4,16 +4,21 @@
 
 ## Projeto
 
-O projeto consiste em uma aplicação NodeJS + Mongo hospedada no Heroku [API](https://accenture-backend-test.herokuapp.com) com os requisitos executados na seguinte forma:
-• Persistência de dados
+O projeto consiste em uma aplicação NodeJS + Mongo hospedada no Heroku 
+**API**: https://accenture-backend-test.herokuapp.com) 
+com os requisitos executados na seguinte forma:
+
+Versão do yarn utilizada: **1.22.10**
+
+- Persistência de dados
   - Está sendo usado o mongoDB Atlas como instância do banco de dados
-• Gestão de dependências via gerenciador de pacotes (npm)
+- Gestão de dependências via gerenciador de pacotes (npm)
   - Dependências listadas no package.json
-• Utilização de Eslint 
+- Utilização de Eslint 
   - Regras definidas em .eslintrc - Regras recomendadas
-• API: Express, Hapi ou similares
+- API: Express, Hapi ou similares
   - Express
-• Utilizar banco nosql
+- Utilizar banco nosql
   - MongoDB
 
 ### Variáveis de ambiente
@@ -47,10 +52,12 @@ Para facilitar a execução dos testes sem interferir no banco que está no Mong
   - Executar o comando `docker-compose up` para subir a instância definida no docker-compose.yml
 
 ### Considerações sobre os requisitos desejáveis
-• JWT como token
+- JWT como token
   - Optei por utilizar o JWT RS256 em vez do HS256 para assinar o token
   - As chaves pública e privada estão em `config/jwt`
-• Testes unitários
+- Testes unitários
   - É necessário estar com o docker do mongo rodando ao executar os testes
+
+Comando para executar os testes: `yarn test`
 
 

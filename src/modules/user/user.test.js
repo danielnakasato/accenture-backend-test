@@ -6,7 +6,6 @@ describe("Test user functions", () => {
 
   beforeAll(async () => {
     await User.deleteMany({});
-    console.log('All users cleared for test');
   });
 
   let userToTest = {}; // User created to test token
@@ -36,23 +35,6 @@ describe("Test user functions", () => {
       });
   });
 
-  test("It should return user info when requested with a valid token", done => {
-    request(app)
-      .get(`/user/${userToTest.id}`)
-      .set({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${userToTest.token}`
-      })
-      .then(res => {
-        expect(res.statusCode).toBe(200);
-        expect(res.body).toHaveProperty('data_criacao');
-        expect(res.body).toHaveProperty('data_atualizacao');
-        expect(res.body).toHaveProperty('ultimo_login');
-        expect(res.body).toHaveProperty('token');
-        done();
-      });
-  });
-
   test("It should return code 401 and 'Sessão inválida' for fake token", done => {
     request(app)
       .get(`/user/${userToTest.id}`)
@@ -77,6 +59,23 @@ describe("Test user functions", () => {
       .then(res => {
         expect(res.statusCode).toBe(401);
         expect(res.body).toHaveProperty('mensagem');
+        done();
+      });
+  });
+
+  test("It should return user info when requested with a valid token", done => {
+    request(app)
+      .get(`/user/${userToTest.id}`)
+      .set({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${userToTest.token}`
+      })
+      .then(res => {
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toHaveProperty('data_criacao');
+        expect(res.body).toHaveProperty('data_atualizacao');
+        expect(res.body).toHaveProperty('ultimo_login');
+        expect(res.body).toHaveProperty('token');
         done();
       });
   });

@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   const token = extractToken(req);
   return verify(token)
   .then(data => {
-    req.body.userEmail = data;
+    req.user = data;
     return next();
   })
   .catch(() => {

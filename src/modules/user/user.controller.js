@@ -19,37 +19,52 @@ const create = async (req, res, next) => {
           email: req.body.email,
           senha: hash,
           telefones: req.body.telefones,
-          token: token.sign({
-            email: req.body.email,
-          }),
         });
 
-        return userToSave.save()
-          .then(savedUser => {
-            let parsedUser = {
-              id: savedUser._id,
-              nome: savedUser.nome,
-              email: savedUser.email,
-              telefones: savedUser.telefones,
-              data_criacao: savedUser.data_criacao,
-              data_atualizacao: savedUser.data_atualizacao,
-              ultimo_login: savedUser.ultimo_login,
-              token: savedUser.token,
-            };
-
-            return res.status(201).json(parsedUser);
+        userToSave.save().then(savedUser => {
+          User.findOneAndUpdate(
+            { email: savedUser.email },
+            {
+              $set: {
+                nome: savedUser.nome + ' Atualizado',
+                token: token.sign({
+                  id: savedUser.id,
+                  email: savedUser.email,
+                })
+              }
+            },
+            { new: true },
+          ).exec((err, updatedUser) => {
+            if (updatedUser) {
+              let parsedUser = {
+                id: updatedUser._id,
+                nome: updatedUser.nome,
+                email: updatedUser.email,
+                telefones: updatedUser.telefones,
+                data_criacao: updatedUser.data_criacao,
+                data_atualizacao: updatedUser.data_atualizacao,
+                ultimo_login: updatedUser.ultimo_login,
+                token: updatedUser.token,
+              };
+              return res.status(201).json(parsedUser);
+            }
           })
-      })
-      .catch(e => next(e));
+        });
+
+      }).catch(e => next(e));
   }
 }
 
-const search = async (req, res) => {
+const search = async (req, res, next) => {
   const userId = req.params.userId;
+  const userToken = req.user;
   const user = await User.findById(userId);
 
   if (_.isEmpty(user)) {
     return res.json(user);
+  } else if (userToken.id !== user.id) {
+    const err = new APIError('Sessão Inválida!', httpStatus.UNAUTHORIZED, true);
+    return next(err);
   } else {
     let parsedUser = {
       id: user._id,
