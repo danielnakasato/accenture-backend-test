@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "49ad5634-8d40-4e51-ba27-ab13c2aa7310",
+		"name": "Accenture Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"João 1\",\n\t\"email\": \"joao1.teste@gmail.com\",\n\t\"senha\": \"teste10\",\n\t\"telefones\": [\n\t\t{\n\t\t\t\"numero\": \"912341234\",\n\t\t\t\"ddd\": \"11\"\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmODE3NDQ4ZjYwOWJlOTNkNDQ2ZDNmYSIsImVtYWlsIjoiam9hbzEudGVzdGVAZ21haWwuY29tIiwiaWF0IjoxNjAyMzI5MTE4LCJleHAiOjE2MDIzMjkyMDh9.GsL-SqYTTzhNXT9zk1TtK2RJL2z4yElxz6hKxq0X69T2ymQZ3qqUSiVx4tkMQwDLAtG-Hzto7lxN7u_-sXjX8fhyauZFBfmQ5fD2PUZpCfkWXpNNUKj3FlmshjZxoKinVtZ8YXvVkjLHw0IBllfMwvoBb0KHVXndpVk6I9-ReeBgHsn6H_1lrE_3hSfi9NlBXJxxAkpmkYe1_aWuA6qYQhypWlIfX1J5TIdz5FdRqaax4jqmI-Ef8FoDvGYvd0aYgePuhVU7uZfWKTY1o-Xiw0LqhlkqbvKWyxBntINx7d9mKLsk04DUyc3MiBX608UnwyAgK0O4PJTmlELCeDQpzQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"João 4\",\n\t\"email\": \"joao4.teste@gmail.com\",\n\t\"senha\": \"teste321\",\n\t\"telefones\": [\n\t\t{\n\t\t\t\"numero\": \"983638384\",\n\t\t\t\"ddd\": \"11\"\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user/5f8187d8e18bccce485ae090",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"5f8187d8e18bccce485ae090"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/health-check",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"health-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"joao1.teste@gmail.com\",\n\t\"senha\": \"teste123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
